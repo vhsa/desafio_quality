@@ -5,9 +5,7 @@ import br.com.desafio_quality.dto.RoomDTO;
 import br.com.desafio_quality.exception.PropException;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class PropService {
@@ -52,6 +50,56 @@ public class PropService {
         }
 
         throw new PropException("Vizinhaça não encontrada");
+    }
+
+    // US-0003
+    public PropDTO biggerRoom ( PropDTO propDTO ) {
+
+        List<RoomDTO> roomDTOList = new ArrayList<>();
+        RoomDTO biggestRoom;
+
+
+        for ( RoomDTO r: propDTO.getRooms() ) {
+            Double valueFromBiggetRoom = r.getRoom_width() * r.getRoom_length();
+
+            biggestRoom = new RoomDTO(r.getRoom_name(), r.getRoom_width(), r.getRoom_length(), valueFromBiggetRoom);
+
+            roomDTOList.add(biggestRoom);
+        }
+
+        RoomDTO roomCalculated = roomDTOList.stream().max(Comparator.comparing(RoomDTO::getBiggestRoom)).orElse(null);
+
+        roomCalculated.setBiggestRoom(null);
+
+        return PropDTO.builder()
+                .prop_name(propDTO.getProp_name())
+                .prop_district(propDTO.getProp_district())
+                .biggerRoom(roomCalculated)
+                .build();
+    }
+
+    // us-0004
+    public PropDTO squareMeterForRoom (PropDTO propDTO) {
+
+        RoomDTO roomDTO;
+        List<RoomDTO> roomDTOList = new ArrayList<>();
+
+        for ( RoomDTO r : propDTO.getRooms() ) {
+
+            Double squareMeter = r.getRoom_width() * r.getRoom_length();
+
+            short shortSquareMeter = squareMeter.shortValue();
+
+            roomDTO = new RoomDTO(shortSquareMeter, r.getRoom_name(), r.getRoom_width(), r.getRoom_length());
+
+            roomDTOList.add(roomDTO);
+        }
+
+        return PropDTO.builder()
+                .prop_name(propDTO.getProp_name())
+                .prop_district(propDTO.getProp_district())
+                .rooms(roomDTOList)
+                .build();
     }
 
     // calculate price from prop based in your location

@@ -26,4 +26,14 @@ public class PropController {
     public ResponseEntity<PropDTO> calculatePriceFromPropBasedLocation (@RequestBody PropDTO propDTO) {
         return new ResponseEntity<>(propService.calculatePriceFromPropBasedLocation(propDTO), HttpStatus.OK);
     }
+
+    @PostMapping("/bigger-room")
+    public ResponseEntity<PropDTO> biggerRoom (@RequestBody PropDTO propDTO) {
+        return new ResponseEntity<>(propService.biggerRoom(propDTO), HttpStatus.OK);
+    }
+
+    @PostMapping("/room-detail")
+    public ResponseEntity<PropDTO> squareMeterForRoom (@RequestBody PropDTO propDTO) {
+        return new ResponseEntity<>(propService.squareMeterForRoom(propDTO), HttpStatus.OK);
+    }
 }

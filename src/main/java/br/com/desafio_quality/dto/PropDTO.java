@@ -21,4 +21,5 @@ public class PropDTO {
     // part from return
     private Double squareTotalMeter;
     private Double priceFromPropBasedNeighborhood;
+    private RoomDTO biggerRoom;
 }
