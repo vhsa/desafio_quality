@@ -18,7 +18,13 @@ public class RoomDTO {
 
     // var from return
     private Double biggestRoom;
-    private short squareMeter;
+    private Double squareMeter;
+
+    public RoomDTO(String room_name, Double room_width, Double room_length) {
+        this.room_name = room_name;
+        this.room_width = room_width;
+        this.room_length = room_length;
+    }
 
     public RoomDTO(String room_name, Double room_width, Double room_length, Double biggestRoom) {
         this.room_name = room_name;
@@ -27,7 +33,7 @@ public class RoomDTO {
         this.biggestRoom = biggestRoom;
     }
 
-    public RoomDTO(short squareMeter, String room_name, Double room_width, Double room_length) {
+    public RoomDTO(Double squareMeter, String room_name, Double room_width, Double room_length) {
         this.squareMeter = squareMeter;
         this.room_name = room_name;
         this.room_width = room_width;

@@ -33,12 +33,14 @@ public class PropService {
     // US-0002
     public PropDTO calculatePriceFromPropBasedLocation (PropDTO propDTO) {
 
+        inputValidations(propDTO);
+
         Double totalSquareMeter = calculateSquareMeterFromProp(propDTO).getSquareTotalMeter();
 
-        Map<String, Double> priceFromPropBasedOnTotalSquareMeter = priceFromProp(propDTO);
+        if (this.verifyPropDisctricExits(propDTO)) {
+            Map<String, Double> locationDictionary = this.priceFromProp(propDTO);
 
-        if (priceFromPropBasedOnTotalSquareMeter.containsKey(propDTO.getProp_district())) {
-            Double priceFromNeighborhood = priceFromPropBasedOnTotalSquareMeter.get(propDTO.getProp_district());
+            Double priceFromNeighborhood = locationDictionary.get(propDTO.getProp_district());
 
             return PropDTO.builder()
                     .priceFromPropBasedNeighborhood(totalSquareMeter * priceFromNeighborhood)
@@ -53,7 +55,9 @@ public class PropService {
     }
 
     // US-0003
-    public PropDTO biggerRoom ( PropDTO propDTO ) {
+    public PropDTO biggestRoom ( PropDTO propDTO ) {
+
+        inputValidations(propDTO);
 
         List<RoomDTO> roomDTOList = new ArrayList<>();
         RoomDTO biggestRoom;
@@ -74,12 +78,14 @@ public class PropService {
         return PropDTO.builder()
                 .prop_name(propDTO.getProp_name())
                 .prop_district(propDTO.getProp_district())
-                .biggerRoom(roomCalculated)
+                .biggestRoom(roomCalculated)
                 .build();
     }
 
     // us-0004
     public PropDTO squareMeterForRoom (PropDTO propDTO) {
+
+        inputValidations(propDTO);
 
         RoomDTO roomDTO;
         List<RoomDTO> roomDTOList = new ArrayList<>();
@@ -88,9 +94,7 @@ public class PropService {
 
             Double squareMeter = r.getRoom_width() * r.getRoom_length();
 
-            short shortSquareMeter = squareMeter.shortValue();
-
-            roomDTO = new RoomDTO(shortSquareMeter, r.getRoom_name(), r.getRoom_width(), r.getRoom_length());
+            roomDTO = new RoomDTO(squareMeter, r.getRoom_name(), r.getRoom_width(), r.getRoom_length());
 
             roomDTOList.add(roomDTO);
         }
@@ -100,6 +104,18 @@ public class PropService {
                 .prop_district(propDTO.getProp_district())
                 .rooms(roomDTOList)
                 .build();
+    }
+
+    // verify prop distric exits
+    public boolean verifyPropDisctricExits (PropDTO propDTO) {
+
+        Map<String, Double> priceFromPropBasedOnTotalSquareMeter = this.priceFromProp(propDTO);
+
+        if (priceFromPropBasedOnTotalSquareMeter.containsKey(propDTO.getProp_district())) {
+            return priceFromPropBasedOnTotalSquareMeter.containsKey(propDTO.getProp_district());
+        }
+
+        throw new PropException("Vizinhaça não encontrada no dicionário");
     }
 
     // calculate price from prop based in your location

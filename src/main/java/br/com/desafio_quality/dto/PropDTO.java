@@ -21,5 +21,11 @@ public class PropDTO {
     // part from return
     private Double squareTotalMeter;
     private Double priceFromPropBasedNeighborhood;
-    private RoomDTO biggerRoom;
+    private RoomDTO biggestRoom;
+
+    public PropDTO(String prop_name, String prop_district, List<RoomDTO> rooms) {
+        this.prop_name = prop_name;
+        this.prop_district = prop_district;
+        this.rooms = rooms;
+    }
 }

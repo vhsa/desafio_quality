@@ -27,9 +27,9 @@ public class PropController {
         return new ResponseEntity<>(propService.calculatePriceFromPropBasedLocation(propDTO), HttpStatus.OK);
     }
 
-    @PostMapping("/bigger-room")
-    public ResponseEntity<PropDTO> biggerRoom (@RequestBody PropDTO propDTO) {
-        return new ResponseEntity<>(propService.biggerRoom(propDTO), HttpStatus.OK);
+    @PostMapping("/biggest-room")
+    public ResponseEntity<PropDTO> biggestRoom (@RequestBody PropDTO propDTO) {
+        return new ResponseEntity<>(propService.biggestRoom(propDTO), HttpStatus.OK);
     }
 
     @PostMapping("/room-detail")
