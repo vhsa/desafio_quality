@@ -51,5 +51,13 @@ public class PropControllerTest {
 
     // fourth test
     @Test
-    public void shouldReturnAllSquareMeterFromRoom () {}
+    public void shouldReturnAllSquareMeterFromRoom () {
+        Double[] squareMeter = {10.799999999999999, 28.0, 16.5};
+        Assertions.assertArrayEquals(this.propService.squareMeterForRoom(propDTO)
+                .getRooms()
+                .stream()
+                .map( rr -> rr.getSquareMeter()).toArray(),
+                squareMeter
+        );
+    }
 }
