@@ -65,21 +65,12 @@ public class PropControllerIntegrationTest {
     @Test
     public void shouldReturnBiggestRoomFromProp () throws Exception {
 
-        String expectedBiggestRoom = "{\n" +
-                "        \"room_name\": \"Quarto\",\n" +
-                "        \"room_width\": 7.0,\n" +
-                "        \"room_length\": 4.0\n" +
-                "    }";
-
-        JSONObject roomJsonObject = new JSONObject(expectedBiggestRoom);
-
         this.mockMvc.perform(MockMvcRequestBuilders.post("/biggest-room")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(request)
                 .accept(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.status().isOk());
-//                .andExpect(MockMvcResultMatchers.model().attribute("$.biggestRoom").match(expectedBiggestRoom));
-//                .andExpect(MockMvcResultMatchers.jsonPath("$.biggestRoom").value(expectedBiggestRoom));
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.biggestRoom.room_name").value("Quarto"));
     }
 
     @Test
