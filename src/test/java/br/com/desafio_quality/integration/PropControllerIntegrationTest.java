@@ -1,5 +1,8 @@
 package br.com.desafio_quality.integration;
 
+import br.com.desafio_quality.dto.RoomDTO;
+import br.com.desafio_quality.service.PropService;
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +43,7 @@ public class PropControllerIntegrationTest {
 
         this.mockMvc.perform(MockMvcRequestBuilders.post("/calculate-square-meter")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(request)
+                .content(this.request)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.squareTotalMeter").value(55.3));
@@ -52,7 +55,7 @@ public class PropControllerIntegrationTest {
 
         this.mockMvc.perform(MockMvcRequestBuilders.post("/calculate-prop-price")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(request)
+                .content(this.request)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.squareTotalMeter").value(55.3))
@@ -61,6 +64,37 @@ public class PropControllerIntegrationTest {
 
     @Test
     public void shouldReturnBiggestRoomFromProp () throws Exception {
+
+        String expectedBiggestRoom = "{\n" +
+                "        \"room_name\": \"Quarto\",\n" +
+                "        \"room_width\": 7.0,\n" +
+                "        \"room_length\": 4.0\n" +
+                "    }";
+
+        JSONObject roomJsonObject = new JSONObject(expectedBiggestRoom);
+
+        this.mockMvc.perform(MockMvcRequestBuilders.post("/biggest-room")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(request)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+//                .andExpect(MockMvcResultMatchers.model().attribute("$.biggestRoom").match(expectedBiggestRoom));
+//                .andExpect(MockMvcResultMatchers.jsonPath("$.biggestRoom").value(expectedBiggestRoom));
+    }
+
+    @Test
+    public void shouldReturnSquareMeterForRoom () throws Exception {
+
+        Double[] squareMeter = {10.799999999999999, 28.0, 16.5};
+
+        this.mockMvc.perform(MockMvcRequestBuilders.post("/room-detail")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(this.request)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.rooms[0].squareMeter").value(squareMeter[0]))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.rooms[1].squareMeter").value(squareMeter[1]))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.rooms[2].squareMeter").value(squareMeter[2]));
 
     }
 }

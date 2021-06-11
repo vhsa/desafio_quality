@@ -45,8 +45,6 @@ public class PropControllerUnitTest {
     // third test
     @Test
     public void shouldReturnBiggestRoom () {
-
-        // pegar o maior quarto e comparar com o resultado do método
         Assertions.assertEquals(this.propService.ListBiggestRoom(propDTO.getRooms()), this.propService.biggestRoom(propDTO).getBiggestRoom());
     }
 
