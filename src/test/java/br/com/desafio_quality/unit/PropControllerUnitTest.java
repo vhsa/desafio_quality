@@ -28,7 +28,12 @@ public class PropControllerUnitTest {
     // first test
     @Test
     public void shouldReturnCorrectCalcTotalSquareMeterFromProp () {
-        Assertions.assertEquals(55.3, this.propService.calculateSquareMeterFromProp(this.propDTO).getSquareTotalMeter());
+
+        Double response = this.propService
+                                .calculateSquareMeterFromProp(this.propDTO)
+                                .getSquareTotalMeter();
+
+        Assertions.assertEquals(55.3, response);
     }
 
     // second test
@@ -40,7 +45,9 @@ public class PropControllerUnitTest {
     // third test
     @Test
     public void shouldReturnBiggestRoom () {
-        Assertions.assertNotNull(this.propService.biggestRoom(propDTO).getBiggestRoom());
+
+        // pegar o maior quarto e comparar com o resultado do método
+        Assertions.assertEquals(this.propService.ListBiggestRoom(propDTO.getRooms()), this.propService.biggestRoom(propDTO).getBiggestRoom());
     }
 
     // fourth test
