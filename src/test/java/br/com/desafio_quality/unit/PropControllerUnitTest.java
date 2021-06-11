@@ -1,4 +1,4 @@
-package br.com.desafio_quality.controller;
+package br.com.desafio_quality.unit;
 
 import br.com.desafio_quality.dto.PropDTO;
 import br.com.desafio_quality.dto.RoomDTO;
@@ -6,17 +6,11 @@ import br.com.desafio_quality.service.PropService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-public class PropControllerTest {
+public class PropControllerUnitTest {
 
     PropService propService = new PropService();
     List<RoomDTO> listRoom = new ArrayList<>();

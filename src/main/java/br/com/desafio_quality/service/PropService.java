@@ -38,7 +38,7 @@ public class PropService {
         Double totalSquareMeter = calculateSquareMeterFromProp(propDTO).getSquareTotalMeter();
 
         if (this.verifyPropDisctricExits(propDTO)) {
-            Map<String, Double> locationDictionary = this.priceFromProp(propDTO);
+            Map<String, Double> locationDictionary = this.createPriceFromProp(propDTO);
 
             Double priceFromNeighborhood = locationDictionary.get(propDTO.getProp_district());
 
@@ -109,7 +109,7 @@ public class PropService {
     // verify prop distric exits
     public boolean verifyPropDisctricExits (PropDTO propDTO) {
 
-        Map<String, Double> priceFromPropBasedOnTotalSquareMeter = this.priceFromProp(propDTO);
+        Map<String, Double> priceFromPropBasedOnTotalSquareMeter = this.createPriceFromProp(propDTO);
 
         if (priceFromPropBasedOnTotalSquareMeter.containsKey(propDTO.getProp_district())) {
             return priceFromPropBasedOnTotalSquareMeter.containsKey(propDTO.getProp_district());
@@ -119,7 +119,7 @@ public class PropService {
     }
 
     // calculate price from prop based in your location
-    public Map<String, Double> priceFromProp (PropDTO propDTO) {
+    public Map<String, Double> createPriceFromProp (PropDTO propDTO) {
 
         Map<String, Double> listOfLocations = new HashMap<>();
 
