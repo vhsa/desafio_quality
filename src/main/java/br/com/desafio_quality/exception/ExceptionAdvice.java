@@ -21,7 +21,6 @@ public class ExceptionAdvice {
         String msg = e.getMessage();
         Map<String, String> errors = new HashMap<>();
         if (e instanceof MethodArgumentNotValidException){
-
             ((MethodArgumentNotValidException) e).getBindingResult().getAllErrors().forEach((error) -> {
                 String fieldName = ((FieldError) error).getField();
                 String errorMessage = error.getDefaultMessage();
@@ -29,7 +28,6 @@ public class ExceptionAdvice {
             });
             return new ResponseEntity(errors, HttpStatus.BAD_REQUEST);
         }
-
         return new ResponseEntity(msg, HttpStatus.BAD_REQUEST);
     }
 }
