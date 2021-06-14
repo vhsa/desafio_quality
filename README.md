@@ -1,6 +1,8 @@
 Observação:
 --
 
+<p>Disponibilizei um <a href="https://www.getpostman.com/collections/7aef6ffbb61acd81da6c">link</a> no postman com todas as rotas e seus respectivos body request, basta abrir o link e importar no postman.</p>
+
 <p>Todas as requisições abaixo utilizam o mesmo <i>request body</i></p>
 
 ````javascript
