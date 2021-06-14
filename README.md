@@ -15,6 +15,8 @@ Observação:
 }
 ````
 
+<p> Os valores acima podem ser alterados, porém os atributos do JSON precisam estar estritamente com essa nomenclatura</p>
+
 Os distritos dísponíveis são:
 -- 
 - Brasília
