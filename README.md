@@ -6,14 +6,16 @@ Observação:
 ````javascript
 {
     "prop_name" : "Apto - Asa sul",
-    "prop_district" : "Brasília",
-    "rooms" : [
+        "prop_district" : "Brasília",
+        "rooms" : [
         {"room_name": "Cozinha", "room_width" : 4.5, "room_length" : 2.4},
         {"room_name": "Quarto", "room_width" : 7.0, "room_length" : 4.0},
         {"room_name": "Sala", "room_width" : 7.5, "room_length" : 2.2}
     ]
 }
 ````
+
+<p> Os valores acima podem ser alterados, porém os atributos do JSON precisam estar estritamente com essa nomenclatura</p>
 
 Os distritos dísponíveis são:
 -- 
@@ -51,7 +53,6 @@ Determinar a quantidade de metros quadrados que tem cada cômodo de uma propried
 ````shell
 /room-detail
 ````
-
 
 
 
