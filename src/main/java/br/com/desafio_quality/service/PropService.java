@@ -15,6 +15,7 @@ public class PropService {
 
         Double squareMeter = 0.0;
 
+        // calculate square meter from room
         for ( RoomDTO r : propDTO.getRooms() ) {
             squareMeter += r.getRoom_length() * r.getRoom_width();
         }
@@ -31,11 +32,14 @@ public class PropService {
     // US-0002
     public PropDTO calculatePriceFromPropBasedLocation (PropDTO propDTO) {
 
+        // get value from total square meter
         Double totalSquareMeter = calculateSquareMeterFromProp(propDTO).getSquareTotalMeter();
 
+        // verify if district exists
         if (this.verifyPropDisctricExits(propDTO)) {
             Map<String, Double> locationDictionary = this.createPriceFromProp(propDTO);
 
+            // get price from neighborhood
             Double priceFromNeighborhood = locationDictionary.get(propDTO.getProp_district());
 
             return PropDTO.builder()
@@ -52,9 +56,10 @@ public class PropService {
 
     // US-0003
     public PropDTO biggestRoom ( PropDTO propDTO ) {
-
+        // get list from biggest room
         RoomDTO biggestRoom = ListBiggestRoom(propDTO.getRooms());
 
+        // set null to not appear in response
         biggestRoom.setBiggestRoom(null);
 
         return PropDTO.builder()
@@ -70,6 +75,7 @@ public class PropService {
         RoomDTO roomDTO;
         List<RoomDTO> roomDTOList = new ArrayList<>();
 
+        // calculate square meter for all rooms from a prop and set in a constructor
         for ( RoomDTO r : propDTO.getRooms() ) {
 
             Double squareMeter = r.getRoom_width() * r.getRoom_length();
@@ -86,11 +92,12 @@ public class PropService {
                 .build();
     }
 
-    // verify prop distric exits
+    // verify prop district exits
     public boolean verifyPropDisctricExits (PropDTO propDTO) {
 
         Map<String, Double> priceFromPropBasedOnTotalSquareMeter = this.createPriceFromProp(propDTO);
 
+        // verify if location is on dictionary list
         if (priceFromPropBasedOnTotalSquareMeter.containsKey(propDTO.getProp_district())) {
             return priceFromPropBasedOnTotalSquareMeter.containsKey(propDTO.getProp_district());
         }
@@ -103,6 +110,7 @@ public class PropService {
 
         Map<String, Double> listOfLocations = new HashMap<>();
 
+        // setting a list of districts
         listOfLocations.put("Brasília", 320.0);
         listOfLocations.put("São Paulo", 750.0);
         listOfLocations.put("Rio de Janeiro", 230.0);
@@ -112,6 +120,8 @@ public class PropService {
     }
 
     public RoomDTO ListBiggestRoom(List<RoomDTO> rooms){
+
+        // return biggest room from a prop
         return rooms
                 .stream()
                 .max(Comparator.comparing(c -> (c.getRoom_width() * c.getRoom_length())))

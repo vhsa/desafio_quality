@@ -42,6 +42,14 @@ public class PropControllerUnitTest {
         Assertions.assertTrue(this.propService.verifyPropDisctricExits(this.propDTO));
     }
 
+    @Test
+    public void shouldReturnInvalidDistrict () {
+        Assertions.assertThrows(Exception.class, () -> {
+            propDTO.setProp_district("Jacutinga");
+            propService.verifyPropDisctricExits(propDTO);
+        });
+    }
+
     // third test
     @Test
     public void shouldReturnBiggestRoom () {

@@ -13,9 +13,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @Data
-//@Builder
 @NoArgsConstructor
-//@AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class RoomDTO {
 
@@ -42,18 +40,10 @@ public class RoomDTO {
         this.room_length = room_length;
     }
 
-//    public RoomDTO(String room_name, Double room_width, Double room_length, Double biggestRoom) {
-//        this.room_name = room_name;
-//        this.room_width = room_width;
-//        this.room_length = room_length;
-//        this.biggestRoom = biggestRoom;
-//    }
-
     public RoomDTO(Double squareMeter, String room_name, Double room_width, Double room_length) {
         this.squareMeter = squareMeter;
         this.room_name = room_name;
         this.room_width = room_width;
         this.room_length = room_length;
     }
-
 }

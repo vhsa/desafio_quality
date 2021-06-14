@@ -2,6 +2,7 @@ package br.com.desafio_quality.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -15,6 +16,7 @@ import java.util.Map;
 @ControllerAdvice
 public class ExceptionAdvice {
 
+    // handle to dto validation and custom exception
     @ExceptionHandler({MethodArgumentNotValidException.class, PropException.class})
     public ResponseEntity handleException(Exception e){
 
@@ -28,6 +30,13 @@ public class ExceptionAdvice {
             });
             return new ResponseEntity(errors, HttpStatus.BAD_REQUEST);
         }
+        return new ResponseEntity(msg, HttpStatus.BAD_REQUEST);
+    }
+
+    // handle if request body is null
+    @ExceptionHandler({HttpMessageNotReadableException.class})
+    public ResponseEntity handleRequestBody(Exception e){
+        String msg = "Required request body is missing";
         return new ResponseEntity(msg, HttpStatus.BAD_REQUEST);
     }
 }
