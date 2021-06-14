@@ -25,7 +25,7 @@ public class PropControllerUnitTest {
         this.propDTO = new PropDTO("Apto - Asa sul", "Brasília", this.listRoom);
     }
 
-    // first test
+    // first test - US-0001
     @Test
     public void shouldReturnCorrectCalcTotalSquareMeterFromProp () {
 
@@ -36,12 +36,13 @@ public class PropControllerUnitTest {
         Assertions.assertEquals(55.3, response);
     }
 
-    // second test
+    // second test - US-0002
     @Test
     public void shouldReturnDistricExists () {
         Assertions.assertTrue(this.propService.verifyPropDisctricExits(this.propDTO));
     }
 
+    // second test fail - US-0002
     @Test
     public void shouldReturnInvalidDistrict () {
         Assertions.assertThrows(Exception.class, () -> {
@@ -50,13 +51,13 @@ public class PropControllerUnitTest {
         });
     }
 
-    // third test
+    // third test US-0003
     @Test
     public void shouldReturnBiggestRoom () {
         Assertions.assertEquals(this.propService.ListBiggestRoom(propDTO.getRooms()), this.propService.biggestRoom(propDTO).getBiggestRoom());
     }
 
-    // fourth test
+    // fourth test US-0004
     @Test
     public void shouldReturnAllSquareMeterFromRoom () {
         Double[] squareMeter = {10.799999999999999, 28.0, 16.5};

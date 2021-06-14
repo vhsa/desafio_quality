@@ -24,7 +24,7 @@ public class PropControllerIntegrationTest {
 
     private String request;
 
-    @BeforeEach
+    @BeforeEach // setup inicial about integration test
     public void setup () {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(this.webApplicationContext).build();
         this.request = "{\n" +
@@ -38,7 +38,7 @@ public class PropControllerIntegrationTest {
                 "}";
     }
 
-    @Test
+    @Test // test about US-0001
     public void shouldReturnCorrectCalcFromTotalSquareMeterRoute () throws Exception {
 
         this.mockMvc.perform(MockMvcRequestBuilders.post("/calculate-square-meter")
@@ -50,7 +50,7 @@ public class PropControllerIntegrationTest {
 
     }
 
-    @Test
+    @Test // test about US-0002
     public void shouldReturnCalcPriceFromPropBasedLocation () throws Exception {
 
         this.mockMvc.perform(MockMvcRequestBuilders.post("/calculate-prop-price")
@@ -62,7 +62,7 @@ public class PropControllerIntegrationTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.priceFromPropBasedNeighborhood").value(17696.0));
     }
 
-    @Test
+    @Test // test about US-0003
     public void shouldReturnBiggestRoomFromProp () throws Exception {
 
         this.mockMvc.perform(MockMvcRequestBuilders.post("/biggest-room")
@@ -73,7 +73,7 @@ public class PropControllerIntegrationTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.biggestRoom.room_name").value("Quarto"));
     }
 
-    @Test
+    @Test // test about US-0004
     public void shouldReturnSquareMeterForRoom () throws Exception {
 
         Double[] squareMeter = {10.799999999999999, 28.0, 16.5};
